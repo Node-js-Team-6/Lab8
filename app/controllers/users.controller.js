@@ -61,6 +61,7 @@ function findOne(req, res) {
   const id = req.body.id;
 
   User.findById(id)
+    .populate("posts")
     .then((data) => {
       if (!data) {
         res.status(404).send({

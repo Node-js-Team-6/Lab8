@@ -32,6 +32,12 @@ export default (mongoose, mongoosePaginate) => {
           message: (props) => `${props.value} is not a valid email address!`,
         },
       },
+      posts: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "post",
+        },
+      ],
     },
     {
       optimisticConcurrency: true,

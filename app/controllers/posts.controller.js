@@ -66,6 +66,13 @@ function findOne(req, res) {
   const id = req.body.id;
 
   Post.findById(id)
+    .populate("author")
+    .populate("comments")
+    .then((data) => {
+      for (let comment in data.comments) {
+        await comment.populate("author").execPopulate();
+      }
+    })
     .then((data) => {
       if (!data) {
         res.status(404).send({
