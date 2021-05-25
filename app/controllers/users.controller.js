@@ -35,7 +35,7 @@ function create(req, res) {
 function findAll(req, res) {
   const { username, page, size } = req.query;
 
-  let condition = title
+  let condition = username
     ? { username: { $regex: new RegExp(username), $options: "i" } }
     : {};
 
