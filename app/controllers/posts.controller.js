@@ -50,7 +50,7 @@ function findAll(req, res) {
     .then((data) => {
       res.send({
         totalItems: data.totalDocs,
-        tutorials: data.docs,
+        items: data.docs,
         totalPages: data.totalPages,
         currentPage: data.page - 1,
       });
@@ -69,8 +69,8 @@ function findOne(req, res) {
     .populate("author")
     .populate("comments")
     .then((data) => {
-      for (let comment in data.comments) {
-        await comment.populate("author").execPopulate();
+      for (let comment of data.comments) {
+        comment.populate("author").execPopulate();
       }
     })
     .then((data) => {
@@ -84,7 +84,7 @@ function findOne(req, res) {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Post with id=" + id,
+        message: err.message || "Error retrieving Post with id=" + id,
       });
     });
 }
@@ -111,7 +111,7 @@ function update(req, res) {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Post with id=" + id,
+        message: err.message || "Error updating Post with id=" + id,
       });
     });
 }
@@ -131,7 +131,7 @@ function remove(req, res) {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error deleting Post with id=" + id,
+        message: err.message || "Error deleting Post with id=" + id,
       });
     });
 }

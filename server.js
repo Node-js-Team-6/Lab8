@@ -4,6 +4,9 @@ import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
+import postRouter from "./app/routes/posts.router.js";
+import userRouter from "./app/routes/users.router.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -69,8 +72,8 @@ app.get("/", function (req, res) {
 });
 
 //routers
-//app.use("/users", userRouter);
-//app.use("/posts", postRouter);
+app.use("/users", userRouter);
+app.use("/posts", postRouter);
 
 // listen to port
 const PORT = process.env.PORT || 8080;

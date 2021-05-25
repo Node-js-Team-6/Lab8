@@ -8,11 +8,11 @@ api.get("/", controller.findAll);
 api.get("create", (req, res) => {});
 api.post("/create", controller.create);
 
-api.get("/:id", controller.findOne(req, res));
+api.get("/:id", controller.findOne);
 
-api.get("/edit/:id", controller.findOne(req, res));
-api.post("/edit/:id", controller.update(req, res));
+api.get("/edit/:id", controller.findOne);
+api.post("/edit/:id", controller.update);
 
-api.get("/delete/:id", controller.findOne(req, res));
+api.get("/delete/:id", controller.findOne);
 api.post("delete/:id", controller.remove);
 export default api;

@@ -45,7 +45,7 @@ function findAll(req, res) {
     .then((data) => {
       res.send({
         totalItems: data.totalDocs,
-        tutorials: data.docs,
+        items: data.docs,
         totalPages: data.totalPages,
         currentPage: data.page - 1,
       });
@@ -73,7 +73,7 @@ function findOne(req, res) {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving User with id=" + id,
+        message: err.message || "Error retrieving User with id=" + id,
       });
     });
 }
@@ -102,7 +102,7 @@ function update(req, res) {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating User with id=" + id,
+        message: err.message || "Error updating User with id=" + id,
       });
       return false;
     });
@@ -123,7 +123,7 @@ function remove(req, res) {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error deleting User with id=" + id,
+        message: err.message || "Error deleting User with id=" + id,
       });
     });
 }
