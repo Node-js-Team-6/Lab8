@@ -1,12 +1,19 @@
 export default (mongoose, mongoosePaginate) => {
   let schema = mongoose.Schema(
     {
-      date: Date,
-      username: String,
+      date: {
+        type: Date,
+        default: Date.now,
+        required: true,
+      },
       text: String,
       author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
+      },
+      post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "post",
       },
     },
     {
