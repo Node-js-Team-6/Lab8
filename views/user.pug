@@ -9,9 +9,11 @@ html(lang='en')
         link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
     body
         .container.text-center.w-75
-
+            h5 Author #{username}
+            h5 Author's email:  #{email}
+            h3.text-danger Author's Posts
             .row.row-cols-3.justify-content-center
-            for post in items
+            for post in posts
                 .col.p-2
                 .card
                     .card-header
@@ -27,9 +29,7 @@ html(lang='en')
                     .card-footer
                         .row
                             .col
-                                a.btn.btn-danger.text-white(href="posts/"+post.id) Continue Reading
-                            .col
-                                a.btn.btn-info.text-white Check out Author: #{post.author.username}
+                                a.btn.btn-danger.text-white(href="../posts/"+post.id) Continue Reading
 
         // Optional JavaScript
         // jQuery first, then Popper.js, then Bootstrap JS

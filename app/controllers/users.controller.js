@@ -73,7 +73,7 @@ function findOne(req, res) {
       } else {
         Post.find({ author: data._id }).then((posts) => {
           data.posts = posts;
-          res.send(data);
+          res.render("user", data);
         });
       }
     })
