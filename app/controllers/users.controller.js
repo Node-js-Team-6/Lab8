@@ -78,6 +78,10 @@ function findOne(req, res) {
     });
 }
 
+async function getById(id) {
+  return await User.findById(id);
+}
+
 function update(req, res) {
   if (!res.body) {
     res.status(400).send({
@@ -134,6 +138,7 @@ const controller = {
   findAll,
   update,
   remove,
+  getById,
 };
 
 export default controller;

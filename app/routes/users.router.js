@@ -14,8 +14,13 @@ const ensureAuthenticated = (req, res, next) => {
 };
 
 //set user as local variable, so that views can see it
-api.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
+api.use(async function (req, res, next) {
+  console.log(req);
+  if (req.session.passport && req.session.passport.user) {
+    res.locals.currentUser = await controller.getById(
+      req.session.passport.user
+    );
+  }
   next();
 });
 
@@ -32,7 +37,6 @@ api.post(
   passport.authenticate("login", {
     successRedirect: "/",
     failureRedirect: "/login/failed",
-    failureFlash: true,
   })
 );
 
