@@ -4,15 +4,18 @@ import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
+
+import db from "./app/models/models.js";
 import postRouter from "./app/routes/posts.router.js";
 import userRouter from "./app/routes/users.router.js";
+import setupPassport from "./app/setup.passport.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
 app.set("views", path.resolve(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 
 // configure app
 app.use(logger("dev"));
@@ -25,7 +28,7 @@ const staticPath = path.resolve(__dirname, "public");
 app.use(express.static(staticPath));
 
 // connect to db
-import db from "./app/models/models.js";
+
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -36,6 +39,8 @@ db.mongoose
     console.log("Cannot connect to the database", err);
     process.exit();
   });
+
+setupPassport();
 
 //routing
 /*
