@@ -51,8 +51,7 @@ function findAll(req, res) {
       for (let post of data.docs) {
         post.populate("author").populate("comments").execPopulate();
       }
-
-      res.send({
+      res.render("posts", {
         totalItems: data.totalDocs,
         items: data.docs,
         totalPages: data.totalPages,
