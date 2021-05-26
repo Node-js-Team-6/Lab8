@@ -31,7 +31,7 @@ function create(req, res) {
     });
 }
 
-//Can also specify title filter and author filter
+//Can also specify username filter
 function findAll(req, res) {
   const { username, page, size } = req.query;
 
