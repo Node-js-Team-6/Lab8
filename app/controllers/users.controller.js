@@ -44,7 +44,7 @@ function findAll(req, res) {
   User.paginate(condition, { offset, limit })
     .then((data) => {
       for (let user of users) {
-        user.populate("posts").execPopulate();
+        await user.populate("posts").execPopulate();
       }
       res.send({
         totalItems: data.totalDocs,

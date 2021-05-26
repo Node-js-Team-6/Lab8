@@ -49,7 +49,7 @@ function findAll(req, res) {
   Post.paginate(condition, { offset, limit })
     .then((data) => {
       for (let post of data.docs) {
-        post.populate("author").populate("comments").execPopulate();
+        await post.populate("author").populate("comments").execPopulate();
       }
       res.render("posts", {
         totalItems: data.totalDocs,
@@ -73,7 +73,7 @@ function findOne(req, res) {
     .populate("comments")
     .then((data) => {
       for (let comment of data.comments) {
-        comment.populate("author").execPopulate();
+        await comment.populate("author").execPopulate();
       }
     })
     .then((data) => {
