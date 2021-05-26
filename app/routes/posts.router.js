@@ -5,7 +5,7 @@ const api = express.Router();
 
 api.get("/", controller.findAll);
 
-api.get("create", (req, res) => {});
+api.get("/create", (req, res) => {res.render("writepost")});
 api.post("/create", controller.create);
 
 api.get("/:id", controller.findOne);

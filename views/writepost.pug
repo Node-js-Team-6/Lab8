@@ -8,19 +8,31 @@ html(lang='en')
         // Bootstrap CSS
         link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
     body
-        .container.text-center
-            h1(style="color: #C5283D") Just Another Forum
-            img(src="/resources/icon-telegram.png")(style="width: 256px; height: 256px;")
+        .container.text-center.w-75.h-100(style="margin-top: 20px")
+            h3.text-danger Here you can write your own post
             br
-            .row.text-center.p-4
-                .col-4
-                .col-4
-                    a(href="/posts").btn.btn-danger.w-100 Posts
-            if !currentUser
-                .row.text-center.p-4
-                    .col-4
-                    .col-4
-                        a(href="users/login").btn.btn-danger.w-100 Login
+            form(action="/posts/create" method="post").align-middle
+                .row.p-2
+                    .col
+                        h5.form-check-label Title
+                .row.p-2
+                    .col
+                        input(type="text" name="title" placeholder="Title").w-50
+                .row.p-2
+                    .col
+                        h6.form-check-label Description
+                .row.p-2
+                    .col
+                        input(type="textarea" name="password" placeholder="Description").w-50
+                .row.p-2
+                    .col
+                        h6.form-check-label Text
+                .row.p-2
+                   .col
+                       textarea(rows=10, name="text" placeholder="Text").w-50
+                .row.p-2
+                    .col
+                        input.btn.btn-danger.w-25(type="submit" value="Post")
 
         // Optional JavaScript
         // jQuery first, then Popper.js, then Bootstrap JS

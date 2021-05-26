@@ -11,6 +11,8 @@ import db from "./app/models/models.js";
 import postRouter from "./app/routes/posts.router.js";
 import userRouter from "./app/routes/users.router.js";
 import setupPassport from "./app/setup.passport.js";
+import controller from "./app/controllers/users.controller.js";
+import api from "./app/routes/users.router.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -56,6 +58,14 @@ db.mongoose
 
 setupPassport();
 
+app.use(async function (req, res, next) {
+    if (req.session.passport && req.session.passport.user) {
+        res.locals.currentUser = (
+            await controller.getById(req.session.passport.user)
+        ).toObject();
+    }
+    next();
+});
 //routing
 /*
  * parameters:
