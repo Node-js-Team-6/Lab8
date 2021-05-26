@@ -17,9 +17,9 @@ const ensureAuthenticated = (req, res, next) => {
 api.use(async function (req, res, next) {
   console.log(req);
   if (req.session.passport && req.session.passport.user) {
-    res.locals.currentUser = await controller.getById(
-      req.session.passport.user
-    );
+    res.locals.currentUser = (
+      await controller.getById(req.session.passport.user)
+    ).toObject();
   }
   next();
 });
@@ -47,7 +47,7 @@ api.get("/logout", function (req, res) {
 });
 
 api.get("/current", (req, res) => {
-  res.send(res.locals.currentUser);
+  res.send(res.locals.currentUser.username);
 });
 
 api.get("/", controller.findAll);

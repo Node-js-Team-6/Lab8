@@ -48,6 +48,10 @@ function findAll(req, res) {
 
   Post.paginate(condition, { offset, limit })
     .then((data) => {
+      for (let post of data.docs) {
+        post.populate("author").populate("comments").execPopulate();
+      }
+
       res.send({
         totalItems: data.totalDocs,
         items: data.docs,
