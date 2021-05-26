@@ -48,7 +48,7 @@ function findAll(req, res) {
 
   Post.paginate(condition, { offset, limit })
     .then((data) => {
-      res.send({
+      res.render("posts", {
         totalItems: data.totalDocs,
         items: data.docs,
         totalPages: data.totalPages,
