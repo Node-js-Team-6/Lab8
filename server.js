@@ -3,9 +3,9 @@ import logger from "morgan";
 import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import cookieParser from "cookie-parser"
-import passport from  "passport"
-
+import cookieParser from "cookie-parser";
+import passport from "passport";
+import expSession from "express-session";
 
 import db from "./app/models/models.js";
 import postRouter from "./app/routes/posts.router.js";
@@ -27,6 +27,14 @@ app.use(passport.session());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded());
+
+app.use(
+  expSession({
+    secret: "TKRv0IJs=HYqrvagQ#&!F!%V]Ww/4KiVs$s,<<MX",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 //for static files
 const staticPath = path.resolve(__dirname, "public");
