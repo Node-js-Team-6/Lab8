@@ -16,14 +16,14 @@ function create(req, res) {
     description: req.body.description,
     text: req.body.text,
     photos: req.body.photos,
-    author: req.body.authorId,
+    author: res.locals.currentUser._id,
   });
 
   //Save in the db
   post
     .save(post)
     .then((data) => {
-      res.send(data);
+      res.redirect("/");
     })
     .catch((err) => {
       res.status(500).send({
@@ -47,7 +47,7 @@ function findAll(req, res) {
   const { limit, offset } = getPagination(page, size);
 
   Post.paginate(condition, { offset, limit })
-    .then((data) => {
+    .then(async (data) => {
       for (let post of data.docs) {
         await post.populate("author").populate("comments").execPopulate();
       }
@@ -66,23 +66,17 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  const id = req.body.id;
+  const id = req.params.id;
 
   Post.findById(id)
     .populate("author")
-    .populate("comments")
-    .then((data) => {
-      for (let comment of data.comments) {
-        await comment.populate("author").execPopulate();
-      }
-    })
     .then((data) => {
       if (!data) {
         res.status(404).send({
           message: "Not found Post with id " + id,
         });
       } else {
-        res.send(data);
+        res.render("singlepost", data);
       }
     })
     .catch((err) => {

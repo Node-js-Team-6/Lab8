@@ -8,19 +8,28 @@ html(lang='en')
         // Bootstrap CSS
         link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
     body
-        .container.text-center
-            h1(style="color: #C5283D") Just Another Forum
-            img(src="/resources/icon-telegram.png")(style="width: 256px; height: 256px;")
-            br
-            .row.text-center.p-4
-                .col-4
-                .col-4
-                    a(href="/posts").btn.btn-danger.w-100 Posts
-            if !currentUser
-                .row.text-center.p-4
-                    .col-4
-                    .col-4
-                        a(href="users/login").btn.btn-danger.w-100 Login
+        .container.text-center.w-75
+            .card
+                .card-header
+                    .row.text-danger.align-items-center
+                        .col
+                            h2 #{title}
+                .card-body
+                    .row.text-justify
+                        .col-2
+                        .col-8.border.border-danger.p-2(style="border-radius: 10px; border-width: 3px !important")
+                            p #{description}
+                        .col-2
+                    br
+                    .row.text-justify
+                        .col-1
+                        .col-10
+                            p #{text}
+                        .col-1
+                .card-footer
+                    .row
+                        .col
+                            a.btn.btn-info.text-white Check out Author: #{author.username}
 
         // Optional JavaScript
         // jQuery first, then Popper.js, then Bootstrap JS

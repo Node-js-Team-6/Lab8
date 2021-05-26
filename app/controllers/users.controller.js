@@ -42,7 +42,7 @@ function findAll(req, res) {
   const { limit, offset } = getPagination(page, size);
 
   User.paginate(condition, { offset, limit })
-    .then((data) => {
+    .then(async (data) => {
       for (let user of users) {
         await user.populate("posts").execPopulate();
       }
@@ -61,7 +61,7 @@ function findAll(req, res) {
 }
 
 function findOne(req, res) {
-  const id = req.body.id;
+  const id = req.params.id;
 
   User.findById(id)
     .populate("posts")

@@ -14,15 +14,6 @@ const ensureAuthenticated = (req, res, next) => {
 };
 
 //set user as local variable, so that views can see it
-api.use(async function (req, res, next) {
-  console.log(req);
-  if (req.session.passport && req.session.passport.user) {
-    res.locals.currentUser = (
-      await controller.getById(req.session.passport.user)
-    ).toObject();
-  }
-  next();
-});
 
 api.get("/login/failed", (req, res) => {
   res.status(401).send({

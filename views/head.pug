@@ -7,13 +7,14 @@ nav.navbar.navbar-expand-lg.navbar-light(style="background: #FCD7AD")
         ul.navbar-nav.mr-auto
             li.nav-item.active
                 a.nav-link(href='/posts') Posts
-            li.nav-item
-                a.nav-link(href='/users') Users
         ul.navbar-nav.float-right
             li.nav-item
-                #{ currentUser }
-            li.nav-item
-                a.nav-link(href='/users/login') Login
+                if currentUser
+                    div.nav-link.btn.text-white.border-white(style="background: #FCD7AD; border-width: 2px !important")
+                        a.text-white(href='/posts/create') Write Post
+            if !currentUser
+                li.nav-item
+                    a.nav-link(href='/users/login') Login
             li.nav-item.dropdown
                 a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Accounts
                 .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
