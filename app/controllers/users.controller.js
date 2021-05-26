@@ -2,6 +2,7 @@ import db from "../models/models.js";
 import { getPagination } from "./pagination.js";
 
 const User = db.users;
+const Post = db.posts;
 
 function create(req, res) {
   // Validate request
@@ -64,14 +65,16 @@ function findOne(req, res) {
   const id = req.params.id;
 
   User.findById(id)
-    .then(async (data) => {
+    .then((data) => {
       if (!data) {
         res.status(404).send({
           message: "Not found User with id " + id,
         });
       } else {
-        await data.populate("posts").execPopulate();
-        res.send(data);
+        Post.find({ author: data._id }).then((posts) => {
+          data.posts = posts;
+          res.send(data);
+        });
       }
     })
     .catch((err) => {
