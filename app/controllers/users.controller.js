@@ -64,13 +64,13 @@ function findOne(req, res) {
   const id = req.params.id;
 
   User.findById(id)
-    .populate("posts")
-    .then((data) => {
+    .then(async (data) => {
       if (!data) {
         res.status(404).send({
           message: "Not found User with id " + id,
         });
       } else {
+        await data.populate("posts").execPopulate();
         res.send(data);
       }
     })
