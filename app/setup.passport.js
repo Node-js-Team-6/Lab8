@@ -1,13 +1,14 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 
-import User from "./models/user.model.js";
+import db from "./models/models.js";
+const User = db.users;
 
 const LocalStrategy = passportLocal.Strategy;
 
 passport.use(
     "login",
-    new LocalStrategy(function (username, password, done) {
+    new LocalStrategy( 'local-signup',function (username, password, done) {
         User.findOne({ username: username }, function (err, user) {
             if (err) {
                 return done(err);
@@ -19,19 +20,13 @@ passport.use(
                 });
             }
 
-            user.checkPassword(password, function (err, isMatch) {
-                if (err) {
-                    return done(err);
-                }
+            if (user.password !== password){
+                return done(null, false, {
+                    message: "No user withs such password",
+                });
+            }
 
-                if (isMatch) {
-                    return done(null, user);
-                } else {
-                    return done(null, false, {
-                        message: "Invalid password",
-                    });
-                }
-            });
+            return done(null,  user);
         });
     })
 );

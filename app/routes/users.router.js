@@ -12,6 +12,13 @@ const ensureAuthenticated = (req, res, next) => {
         res.redirect("/login");
     }
 };
+
+//set user as local variable, so that views can see it
+api.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 api.get("/login/failed", (req, res) => {
     res.status(401).send({
         message: "Failed to log in",
@@ -35,11 +42,10 @@ api.get("/logout", function (req, res) {
     res.redirect("/");
 });
 
-//set user as local variable, so that views can see it
-api.use(function (req, res, next) {
-    res.locals.currentUser = req.user;
-    next();
-});
+
+api.get("/current", (req, res) => {
+    res.send(res.locals.currentUser);
+})
 
 api.get("/", controller.findAll);
 

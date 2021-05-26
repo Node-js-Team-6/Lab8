@@ -3,6 +3,8 @@ import logger from "morgan";
 import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import cookieParser from "cookie-parser"
+import passport from  "passport"
 
 
 import db from "./app/models/models.js";
@@ -20,6 +22,9 @@ app.set("view engine", "pug");
 // configure app
 app.use(logger("dev"));
 
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded());
 
